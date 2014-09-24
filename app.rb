@@ -8,16 +8,14 @@ require "pg"
 database = PG.connect({dbname: "photo_gallery"})
 
 get "/" do
-  results = database.exec_params("SELECT name FROM galleries")
-  @gallery_names = []
-  results.each do |result|
-    @gallery_names << result["name"]
-  end
+  galleries = database.exec_params("SELECT name  FROM galleries")
+  @gallery_names = galleries.map {|result| result["name"]}
   erb :home
 end
 
-get "/galleries/:name" do
-  @name = params[:name]
-  @images = @gallery_names[@name]
+get "/galleries/:id" do
+  id = params[:id]
+  results = database.exec_params("SELECT name  FROM galleries WHERE id = $1", [id])
+  @gallery_name = results.first["name"]
   erb :galleries
 end
