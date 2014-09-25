@@ -27,10 +27,16 @@ end
 
 post "/galleries" do
   new_gallery_name = params[:gallery][:name]
-  Gallery.create(name: new_gallery_name)
+  Gallery.create({name: new_gallery_name})
   redirect to("/")
 end
 
+patch "/galleries/:id" do
+  id = params[:id]
+  @gallery = Gallery.find(id)
+  @gallery.update({name: params[:gallery][:name]})
+  redirect(to("/galleries/#{id}"))
+end
 
 get "/galleries/:id" do
   id = params[:id]
@@ -42,7 +48,6 @@ end
 
 get "/galleries/:id/edit" do
   id = params[:id]
-  gallery = Gallery.find(id)
-  @name = gallery.name
+  @gallery = Gallery.find(id)
   erb :edit_gallery
 end
