@@ -34,8 +34,15 @@ end
 
 get "/galleries/:id" do
   id = params[:id]
-  gallery = Gallery.find(id)
-  @name = gallery.name
+  @gallery = Gallery.find(id)
+  @name = @gallery.name
   @images = Image.where(gallery_id: id) 
   erb :galleries
+end
+
+get "/galleries/:id/edit" do
+  id = params[:id]
+  gallery = Gallery.find(id)
+  @name = gallery.name
+  erb :edit_gallery
 end
