@@ -1,4 +1,7 @@
-<h2>Viewing the <%= @gallery_name %> gallery</h2>
+<h2>Viewing the <%= @name %> gallery</h2>
 
-<%# @images.each do |image| %>
-<%# end %>
+<ul>
+  <% @images.each do |image| %>
+    <img src="<%= image.url %>"/>
+  <% end %>
+</ul>
