@@ -1,6 +1,8 @@
 <h2>Viewing the <%= @name %> gallery</h2>
 
 <a href="/galleries/<%= @gallery.id %>/edit">Edit this gallery</a>
+<br />
+<a href="/galleries/<%= @gallery.id %>/images/new">Create new image</a>
 
 <form action="/galleries/<%= @gallery.id %>" method="POST">
   <input type="hidden" name="_method" value="DELETE">
@@ -9,6 +11,6 @@
 
 <ul>
   <% @images.each do |image| %>
-    <img src="<%= image.url %>"/>
+    <img width="30%" src="<%= image.url %>"/>
   <% end %>
 </ul>
