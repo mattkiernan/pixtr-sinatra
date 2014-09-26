@@ -46,11 +46,19 @@ delete "/galleries/:id" do
   redirect to "/"
 end
 
+delete "/galleries/:gallery_id/images/:image_id" do
+  gallery_id = params[:gallery_id]
+  image_id = params[:image_id]
+  gallery = Gallery.find(gallery_id)
+  image = gallery.images.find(image_id)
+  image.destroy
+  redirect to "/galleries/#{gallery.id}"
+end
+
 get "/galleries/:id" do
   id = params[:id]
   @gallery = Gallery.find(id)
   @name = @gallery.name
-  @images = Image.where(gallery_id: id) 
   erb :galleries
 end
 
@@ -72,4 +80,22 @@ post "/galleries/:id/images" do
   gallery.images.create({name: params[:image][:name], url: params[:image][:url]})
   redirect to "/galleries/#{id}"
 end
+
+get "/galleries/:gallery_id/images/:image_id/edit" do
+  @gallery = Gallery.find(params[:gallery_id])
+  @image = @gallery.images.find(params[:image_id])
+  erb :edit_image
+end
+
+
+patch "/galleries/:gallery_id/images/:image_id" do
+  gallery = Gallery.find(params[:gallery_id])
+  image = gallery.images.find(params[:image_id])
+  image.update(params[:image])
+  redirect to "/galleries/#{gallery.id}"
+end
+
+
+
+
 

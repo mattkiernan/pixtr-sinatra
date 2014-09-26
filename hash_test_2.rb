@@ -4,4 +4,8 @@ fruit_colors = {
   banana: "yellow"
 }
 
-fruit_colors.each_pair {|fruit, color| puts "All #{fruit}s are #{color}"}
+def fruits(hash)
+  hash.each {|(fruit, color)| puts "All #{fruit}s are #{color}"}
+end
+
+fruits(fruit_colors)

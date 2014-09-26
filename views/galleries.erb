@@ -3,14 +3,23 @@
 <a href="/galleries/<%= @gallery.id %>/edit">Edit this gallery</a>
 <br />
 <a href="/galleries/<%= @gallery.id %>/images/new">Create new image</a>
-
+<br />
 <form action="/galleries/<%= @gallery.id %>" method="POST">
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete gallery">
 </form>
 
 <ul>
-  <% @images.each do |image| %>
-    <img width="30%" src="<%= image.url %>"/>
+  <% @gallery.images.each do |image| %>
+    <li>
+      <p><%= image.name %></p>
+      <img width="30%" src="<%= image.url %>"/>
+      <br />
+      <form action="/galleries/<%= @gallery.id %>/images/<%= image.id %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Delete image">
+      </form>
+      <a href="/galleries/<%= @gallery.id %>/images/<%= image.id %>/edit">Edit Image</a>
+    </li>
   <% end %>
 </ul>
